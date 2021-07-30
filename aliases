@@ -3,5 +3,4 @@ alias export-mongo-pass='export MONGODB_ROOT_PASSWORD=$(kubectl get secret --nam
 alias dash-pass='export DASH_PASS=$(kubectl get secret --namespace tyk tyk-pro-login-details -o jsonpath="{.data.TYK_PASS}" | base64 --decode) && echo -e "Dashboard credentials: default@exmaple.com | " $DASH_PASS'
 
 alias dash-url='export DASH_PORT=$(kubectl get --namespace tyk -o jsonpath="{.spec.ports[0].nodePort}" services dashboard-svc-tyk-pro) && export DASH_URL="http://localhost:$DASH_PORT" && echo -e "Dashboard URL: $DASH_URL"'
-alias port-fwd1='$(echo "Dashboard credentials: default@exmaple.com DAH_PASS\nDashboard URL: DASH_URL\n") && $(kubectl port-forward svc/dashboard-svc-tyk-pro $DASH_PORT:3000)'
 alias port-fwd='dash-pass && dash-url && kubectl port-forward svc/dashboard-svc-tyk-pro $DASH_PORT:3000'
